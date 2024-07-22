@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    background-color: grey;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.5) 0%, rgba(0, 255, 0, 0.5) 50%, rgba(0, 0, 255, 0.5) 100%);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#menu {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    list-style: none;
+    font-size: 200%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-item {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: rgb(51, 21, 76);
+    transition: transform .5s, opacity .5s;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.menu-item a {
+    color: #bdbac1;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+.menu-item:hover {
+    opacity: .5;
+    box-shadow: 0 5px 10px black;
+    background-color: rgb(72, 4, 4);
+}
+
+#central-button {
+  z-index:-2;
+opacity:1;
+    background-color: white;
+    color: black;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+   top:62%;
+left:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+    
+}
+#central-button a {
+    font-size: 1.5rem;
+    color: black;
+}
+
+#menu.active .menu-item:nth-child(2) { transform: rotate(0deg) translateY(100px) rotate(0deg); opacity: 1; }
+#menu.active .menu-item:nth-child(3) { transform: rotate(51.4deg) translateY(100px) rotate(-51.4deg); opacity: 1; }
+#menu.active .menu-item:nth-child(4) { transform: rotate(100.8deg) translateY(100px) rotate(-102.8deg); opacity: 1; }
+#menu.active .menu-item:nth-child(5) { transform: rotate(154.2deg) translateY(100px) rotate(-154.2deg); opacity: 1; }
+#menu.active .menu-item:nth-child(6) { transform: rotate(205.6deg) translateY(100px) rotate(-205.6deg); opacity: 1; }
+#menu.active .menu-item:nth-child(7) { transform: rotate(257deg) translateY(100px) rotate(-257deg); opacity: 1; }
+#menu.active .menu-item:nth-child(8) { transform: rotate(308.4deg) translateY(100px) rotate(-308.4deg); opacity: 1; }
+

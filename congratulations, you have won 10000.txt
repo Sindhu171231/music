@@ -1,0 +1,307 @@
+congratulations, you have won 10000 .. if u want reward click on the below  link
+
+
+
+const playerPool = [];
+const maxPlayers = 8; // Adjust this based on your needs
+
+function createPlayer() {
+  if (playerPool.length < maxPlayers) {
+    const player = new Audio();
+    playerPool.push(player);
+    return player;
+  } else {
+    // Handle reaching the maximum player limit (e.g., reuse an existing player)
+    console.warn("Reached maximum player pool size");
+    return playerPool[0]; // Replace with your reuse logic (e.g., stop a least recently used player)
+  }
+}
+
+let songIndex = 0;
+let audioElement = createPlayer();
+let masterPlay = document.getElementById('masterplay');
+let myProgressBar = document.getElementById('myprogressbar');
+let gif = document.getElementById('gif');
+let masterSongName = document.getElementById('masterSongName');
+let songItems = Array.from(document.getElementsByClassName('songitem'));
+
+let songs = [
+  { songName: "Warriyo - Mortals [NCS Release]", filePath: "songs/1.mp3", coverPath: "covers/1.jpg", duration: null },
+  { songName: "Cielo - Huma-Huma", filePath: "songs/2.mp3", coverPath: "covers/2.jpg", duration: null },
+  { songName: "DEAF KEV - Invincible [NCS Release]-320k", filePath: "songs/3.mp3", coverPath: "covers/3.jpg", duration: null },
+  { songName: "Different Heaven & EH!DE - My Heart [NCS Release]", filePath: "songs/4.mp3", coverPath: "covers/4.jpg", duration: null },
+  { songName: "Janji-Heroes-Tonight-feat-Johnning-NCS-Release", filePath: "songs/5.mp3", coverPath: "covers/5.jpg", duration: null },
+  { songName: "Rabba - Salam-e-Ishq", filePath: "songs/2.mp3", coverPath: "covers/6.jpg", duration: null },
+  { songName: "Sakhiyaan - Salam-e-Ishq", filePath: "songs/2.mp3", coverPath: "covers/7.jpg", duration: null },
+  { songName: "Bhula Dena - Salam-e-Ishq", filePath: "songs/2.mp3", coverPath: "covers/8.jpg", duration: null },
+  { songName: "Tumhari Kasam - Salam-e-Ishq", filePath: "songs/2.mp3", coverPath: "covers/9.jpg", duration: null }
+];
+
+function loadSongData(songIndex) {
+  const audio = playerPool[songIndex]; // Use player from the pool
+  audio.src = `songs/${songIndex + 1}.mp3`;
+  audio.addEventListener('loadeddata', () => {
+    songs[songIndex].duration = audio.duration;
+
+    // Update the song duration element in the UI (see point 2)
+    updateSongDurations();
+  });
+}
+
+let songListContainer = document.querySelector('.songlistcontainer');
+
+function formatDuration(seconds) {
+  // Ensure we have a valid number
+  if (isNaN(seconds)) {
+    return "00:00"; // Or any default value you prefer for invalid durations
+  }
+
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  // Pad minutes and seconds with leading zeros for consistent formatting
+  const formattedMinutes = minutes.toString().padStart(2, '0');
+  const formattedSeconds = Math.round(remainingSeconds.toString().padStart(2, '0'));
+
+  return `${formattedMinutes}:${formattedSeconds}`;
+}
+
+function updateSongDurations() {
+  let songItems = songListContainer.querySelectorAll('.songitem');
+
+  // **Load durations for all songs before updating UI elements**
+  songs.forEach((song, i) => {
+    loadSongData(i); // Load duration for each song
+  })};
+
+  // Now that durations are loaded, iterate through song items
+  songItems.forEach((item, i) => {
+    let durationElement = item.querySelector('.timestamp');
+    if (durationElement) { // Check if the timestamp element exists
+      durationElement.innerText = formatDuration(songs[i].duration);
+     }
+     else {
+      console.warn("Timestamp element not found for song:", i); // Handle missing element
+    }
+     }) // Access loaded duration
+updateSongDurations();
+     
+/*console.log("Welcome to Spotify");
+
+// Initialize the Variables
+
+let songIndex = 0;
+let audioElement = new Audio('songs/1.mp3');
+let masterPlay = document.getElementById('masterplay');
+let myProgressBar = document.getElementById('myprogressbar');
+let gif = document.getElementById('gif');
+let masterSongName = document.getElementById('masterSongName');
+let songItems = Array.from(document.getElementsByClassName('songitem'));
+
+let songs = [
+  { songName: "Warriyo - Mortals [NCS Release]", filePath: "songs/1.mp3", coverPath: "covers/1.jpg", duration: null },
+  { songName: "Cielo - Huma-Huma", filePath: "songs/2.mp3", coverPath: "covers/2.jpg", duration: null },
+  { songName: "DEAF KEV - Invincible [NCS Release]-320k", filePath: "songs/3.mp3", coverPath: "covers/3.jpg", duration: null },
+  { songName: "Different Heaven & EH!DE - My Heart [NCS Release]", filePath: "songs/4.mp3", coverPath: "covers/4.jpg", duration: null },
+  { songName: "Janji-Heroes-Tonight-feat-Johnning-NCS-Release", filePath: "songs/5.mp3", coverPath: "covers/5.jpg", duration: null },
+  { songName: "Rabba - Salam-e-Ishq", filePath: "songs/2.mp3", coverPath: "covers/6.jpg", duration: null },
+  { songName: "Sakhiyaan - Salam-e-Ishq", filePath: "songs/2.mp3", coverPath: "covers/7.jpg", duration: null },
+  { songName: "Bhula Dena - Salam-e-Ishq", filePath: "songs/2.mp3", coverPath: "covers/8.jpg", duration: null },
+  { songName: "Tumhari Kasam - Salam-e-Ishq", filePath: "songs/2.mp3", coverPath: "covers/9.jpg", duration: null }
+];
+
+function loadSongData(songIndex) {
+  let audio=new Audio();
+  
+  audio.src = `songs/${songIndex + 1}.mp3`;
+  audio.addEventListener('loadeddata', () => {
+    songs[songIndex].duration = audio.duration;
+
+    // Update the song duration element in the UI (see point 2)
+    updateSongDurations(); // Call updateSongDurations here to reflect the loaded duration
+  });
+}
+
+let songListContainer = document.querySelector('.songlistcontainer');
+
+function formatDuration(seconds) {
+  // Ensure we have a valid number
+  if (isNaN(seconds)) {
+    return "00:00"; // Or any default value you prefer for invalid durations
+  }
+
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  // Pad minutes and seconds with leading zeros for consistent formatting
+  const formattedMinutes = minutes.toString().padStart(2, '0');
+  const formattedSeconds = Math.round(remainingSeconds.toString().padStart(2, '0'));
+
+  return `${formattedMinutes}:${formattedSeconds}`;
+}
+
+function updateSongDurations() {
+  let songItems = songListContainer.querySelectorAll('.songitem');
+
+  // **Load durations for all songs before updating UI elements**
+  songs.forEach((song, i) => {
+    loadSongData(i); // Load duration for each song
+  });
+
+  // Now that durations are loaded, iterate through song items
+  songItems.forEach((item, i) => {
+    let durationElement = item.querySelector('.timestamp');
+    if (durationElement) { // Check if the timestamp element exists
+      durationElement.innerText = formatDuration(songs[i].duration); // Access loaded duration
+    } else {
+      console.warn("Timestamp element not found for song:", i); // Handle missing element
+    }
+  });
+}
+
+// Call updateSongDurations initially to load and display durations
+updateSongDurations();
+
+
+
+/*function loadSongData(songIndex) {
+  let audio = new Audio();
+  audio.src = `songs/${songIndex + 1}.mp3`;
+
+  audio.addEventListener('loadeddata', () => {
+    songs[songIndex].duration = audio.duration;
+  });
+}
+
+function updateSongDurations() {
+  let songItems = songListContainer.querySelectorAll('.songitem');
+  songItems.forEach((item, i) => {
+    let durationElement = item.querySelector('.timestamp');
+    loadSongData(i);
+    durationElement.innerText = formatDuration(songs[i].duration); 
+    // Assuming you have a formatDuration function
+    console.log(songs[i].duration);
+  });
+}
+function loadSongData(songIndex) {
+  let audio = new Audio();
+  audio.src = `songs/${songIndex + 1}.mp3`;
++  audio.addEventListener('loadeddata', () => {
+    songs[songIndex].duration = audio.duration;
+    updateSongDurations();
+    
+    // Update the song duration element in the UI (see point 2)
+  })};
+
+// Update durations initially (after loading song data)*/
+
+
+songItems.forEach((element, i)=>{ 
+
+element.getElementsByTagName("img")[0].src = songs[i].coverPath; 
+element.getElementsByClassName("songName")[0].innerText = songs[i].songName; 
+
+
+
+})
+
+
+
+  
+masterPlay.addEventListener('click', ()=>{
+if(audioElement.paused || audioElement.currentTime<=0){
+audioElement.play();
+masterPlay.classList.remove('fa-play-circle');
+masterPlay.classList.add('fa-pause-circle');
+gif.style.opacity = 1;
+}
+else{
+audioElement.pause();
+masterPlay.classList.remove('fa-pause-circle');
+masterPlay.classList.add('fa-play-circle');
+gif.style.opacity = 0;
+}
+})
+// Listen to Events
+audioElement.addEventListener('timeupdate', ()=>{ 
+// Update Seekbar
+progress = parseInt((audioElement.currentTime/audioElement.duration)* 100); 
+myProgressBar.value = progress;
+})
+
+myProgressBar.addEventListener('change', ()=>{
+audioElement.currentTime = myProgressBar.value * audioElement.duration/100;
+})
+
+const makeAllPlays = ()=>{
+Array.from(document.getElementsByClassName('songitemplay')).forEach((element)=>{
+
+element.classList.add('fa-pause-circle');
+})
+}
+
+Array.from(document.getElementsByClassName('songitemplay')).forEach((element)=>{
+element.addEventListener('click', (e)=>{ 
+makeAllPlays();
+songIndex = parseInt(e.target.id);
+/*e.target.classList.remove('fa-play-circle');
+e.target.classList.add('fa-pause-circle');
+audioElement.src = `songs/${songIndex+1}.mp3`;
+masterSongName.innerText = songs[songIndex].songName;
+audioElement.currentTime = 0;*/
+if(audioElement.paused || audioElement.currentTime<=0){
+  e.target.classList.remove('fa-play-circle');
+e.target.classList.add('fa-pause-circle');
+audioElement.src = `songs/${songIndex+1}.mp3`;
+masterSongName.innerText = songs[songIndex].songName;
+audioElement.currentTime = 0
+  audioElement.play();
+  masterPlay.classList.remove('fa-play-circle');
+  masterPlay.classList.add('fa-pause-circle');
+ 
+}
+else{
+  audioElement.pause();
+  e.target.classList.remove('fa-pause-circle');
+e.target.classList.add('fa-play-circle');
+  masterPlay.classList.add('fa-play-circle')
+  masterPlay.classList.remove('fa-pause-circle')
+  
+}
+
+
+})
+})
+
+
+
+document.getElementById('next').addEventListener('click', ()=>{
+if(songIndex>=8){
+songIndex = 0
+}
+else{
+songIndex += 1;
+}
+audioElement.src = `songs/${songIndex+1}.mp3`;
+masterSongName.innerText = songs[songIndex].songName;
+audioElement.currentTime = 0;
+audioElement.play();
+masterPlay.classList.remove('fa-play-circle');
+masterPlay.classList.add('fa-pause-circle');
+
+})
+
+document.getElementById('previous').addEventListener('click', ()=>{
+if(songIndex<=0){
+   songIndex = 0
+}
+else{
+songIndex -= 1;
+}
+audioElement.src = `songs/${songIndex+1}.mp3`;
+masterSongName.innerText = songs[songIndex].songName;
+audioElement.currentTime = 0;
+audioElement.play();
+masterPlay.classList.remove('fa-play-circle');
+masterPlay.classList.add('fa-pause-circle');
+})

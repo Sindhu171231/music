@@ -1,0 +1,39 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.image-slider-container {
+    display: flex;
+    gap: 20px;
+}
+
+.image-box {
+    width: 200px;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-box img {
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    transition: top 1s ease-in-out;
+}
+
+.image-box img.active {
+    top: 0;
+}
+
+.image-box img.next {
+    top: 100%;
+}
+
+.image-box img.previous {
+    top: -100%;
+}
